@@ -4,15 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gemma 3</title>
+    <title>Chat z AI</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="script.js" defer></script>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; text-align: center; }
+        textarea { width: 100%; height: 100px; margin-bottom: 10px; }
+        button { padding: 10px 20px; font-size: 16px; }
+        .response { margin-top: 20px; padding: 10px; border: 1px solid #ddd; background: #f9f9f9; }
+    </style>
 </head>
 
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="script.js" defer></script>
-    <input type="text" name="prompt" id="prompt" style="width: 100%;">
-    <button id="generate">Generate</button>
-    <p id="output"></p>
+    <h2>Chat z AI (Ollama)</h2>
+    <textarea id="prompt" name="prompt" placeholder="Zadaj Gemmmie pytanie"></textarea>
+    <br>
+    <button id="generate">Wyślij</button>
+
+    <div class="response" id="output"></div>
+
+
 </body>
 
 </html>
