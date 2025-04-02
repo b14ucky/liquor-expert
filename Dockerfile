@@ -1,3 +1,3 @@
 FROM ollama/ollama
 
-RUN ollama pull gemma3:1b
+RUN ollama serve & sleep 5 && ollama run gemma3:1b
