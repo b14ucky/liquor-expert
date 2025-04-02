@@ -2,7 +2,7 @@ const prompt = document.getElementById('prompt')
 const generateButton = document.getElementById('generate')
 const output = document.getElementById('output')
 
-const url = "http://fastapi:8000/generate"
+const url = "http://localhost/api/generate"
 
 generateButton.addEventListener('click', e => {
     fetch(url, {

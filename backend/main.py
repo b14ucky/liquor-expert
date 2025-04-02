@@ -21,7 +21,7 @@ class GenerateRequest(BaseModel):
 @app.post("/generate")
 def generate(request: GenerateRequest):
     response = requests.post(
-        "http://localhost:11434/api/generate",
+        "http://ollama:11434/api/generate",
         json={"prompt": request.prompt, "stream": False, "model": "gemma3:1b"},
     )
 
