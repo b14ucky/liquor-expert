@@ -6,8 +6,6 @@ services:
     container_name: ollama
     networks:
       - ollama-net
-    volumes:
-      - ollama:/root/.ollama
 
   api:
     build: ./backend/.
