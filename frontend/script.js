@@ -9,12 +9,13 @@ generateButton.addEventListener('click', e => {
     fetch(url, {
         method: "POST",
         body: JSON.stringify({
-            prompt: prompt.value
+            question: prompt.value
         }),
         headers: {
             "Content-Type": "application/json"
         }
-    }).then(response => response.json())
+    })
+        .then(response => response.json())
         .then(json => {
             output.innerHTML = marked.parse(json.response)
         })

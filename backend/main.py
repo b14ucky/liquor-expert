@@ -1,7 +1,22 @@
-from fastapi import FastAPI, Response
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-import requests
+
+from langchain_ollama.llms import OllamaLLM
+from langchain_core.prompts import ChatPromptTemplate
+
+model = OllamaLLM(model="gemma3:1b", base_url="http://ollama:11434")
+
+template = """
+You are a professional liquor taster and your job is to answer questions about alcoholic beverages
+
+Here are some relevant reviews: {reviews}
+
+Here is the question to answer: {question}
+"""
+
+prompt = ChatPromptTemplate.from_template(template)
+chain = prompt | model
 
 app = FastAPI()
 
@@ -14,15 +29,13 @@ app.add_middleware(
 )
 
 
-class GenerateRequest(BaseModel):
-    prompt: str
+class GenerateQuery(BaseModel):
+    question: str
 
 
 @app.post("/generate")
-def generate(request: GenerateRequest):
-    response = requests.post(
-        "http://ollama:11434/api/generate",
-        json={"prompt": request.prompt, "stream": False, "model": "gemma3:1b"},
-    )
+def generate(query: GenerateQuery):
 
-    return Response(content=response.text, media_type="application/json")
+    response = chain.invoke({"reviews": [], "question": query.question})
+
+    return {"response": response}
