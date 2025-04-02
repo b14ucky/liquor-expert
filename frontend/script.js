@@ -18,3 +18,7 @@ generateButton.addEventListener('click', e => {
             output.innerHTML = marked.parse(json.response)
         })
 })
+
+function think() {
+    div.response.innerHTML = 'Myślę...'
+}
