@@ -5,14 +5,18 @@ from pydantic import BaseModel
 from langchain_ollama.llms import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate
 
+from vector_db import retriever
+
 model = OllamaLLM(model="gemma3:1b", base_url="http://ollama:11434")
 
 template = """
-You are a professional liquor taster and your job is to answer questions about alcoholic beverages
+You are a professional liquor taster with extensive knowledge of alcoholic beverages. Your job is to provide expert answers to users' questions, using both your knowledge and any relevant reviews provided.
 
-Here are some relevant reviews: {reviews}
+Here are some relevant reviews (the user has never seen them): {reviews}
 
-Here is the question to answer: {question}
+Use these reviews as supporting information, but do not rely solely on them. If they are insufficient, answer based on your own expertise.
+
+Here is the user's question for you to answer: {question}
 """
 
 prompt = ChatPromptTemplate.from_template(template)
@@ -36,6 +40,7 @@ class GenerateQuery(BaseModel):
 @app.post("/generate")
 def generate(query: GenerateQuery):
 
-    response = chain.invoke({"reviews": [], "question": query.question})
+    reviews = retriever.invoke(query.question)
+    response = chain.invoke({"reviews": reviews, "question": query.question})
 
     return {"response": response}
