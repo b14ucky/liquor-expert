@@ -7,7 +7,7 @@ services:
     networks:
       - ollama-net
     volumes:
-      - ollama
+      - ollama:/root/.ollama
 
   api:
     build: ./backend/.
