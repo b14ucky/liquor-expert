@@ -1,32 +1,45 @@
-version: '3.8'
+version: "3.8"
 
 services:
-  ollama:
-    build: .
-    container_name: ollama
-    networks:
-      - ollama-net
+    ollama:
+        build: .
+        container_name: ollama
+        networks:
+            - ollama-net
 
-  api:
-    build: ./backend/.
-    container_name: fastapi
-    networks:
-      - ollama-net
-    depends_on:
-      - ollama
+    api:
+        build: ./backend/.
+        container_name: fastapi
+        networks:
+            - ollama-net
+        depends_on:
+            - ollama
 
-  web:
-    build: ./frontend/.
-    container_name: webui
-    networks:
-      - ollama-net
-    depends_on:
-      - api
-    ports:
-      - "80:80"
+    web:
+        build: ./frontend/.
+        container_name: webui
+        networks:
+            - ollama-net
+        depends_on:
+            - api
+        ports:
+            - "80:80"
+        develop:
+            watch:
+                - action: sync
+                  path: .
+                  target: /app
+                - action: rebuild
+                  path: Dockerfile
+                - action: rebuild
+                  path: backend/Dockerfile
+                - action: rebuild
+                  path: backend/requirements.txt
+                - action: rebuild
+                  path: frontend/Dockerfile
 
 networks:
-  ollama-net:
-    driver: bridge
+    ollama-net:
+        driver: bridge
 volumes:
-  ollama:
+    ollama:
