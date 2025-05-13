@@ -1,21 +1,13 @@
 version: "3.8"
 
 services:
-<<<<<<< HEAD
     ollama:
         build: .
         container_name: ollama
         networks:
             - ollama-net
-=======
-  ollama:
-    build: .
-    container_name: ollama
-    networks:
-      - ollama-net
-    volumes:
-      - ollama:/root/.ollama
->>>>>>> cf4188c47712b4462926d0dbcd6c014a919ec4fa
+        volumes:
+            - ollama:/root/.ollama
 
     api:
         build: ./backend/.
