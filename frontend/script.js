@@ -5,7 +5,7 @@ const output = document.getElementById('output')
 const url = "http://localhost/api/generate"
 
 generateButton.addEventListener('click', e => {
-    output.innerHTML = "Myślę..."
+    output.innerHTML = "Thinking..."
     fetch(url, {
         method: "POST",
         body: JSON.stringify({
