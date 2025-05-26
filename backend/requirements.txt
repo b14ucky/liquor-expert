@@ -1,7 +1,7 @@
 fastapi
 uvicorn
 requests
-langchain
-langchain-ollama
-langchain-chroma
+langchain==0.3.25
+langchain-ollama==0.3.3
+langchain-chroma==0.2.4
 pandas
